@@ -1,5 +1,7 @@
 package com.example.calorie_calendar.calendar;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class User {
     private final String name;
     private double weight;
@@ -11,11 +13,20 @@ public class User {
     public enum Gender {MALE, FEMALE};
 
     public User(String name, double weight, Gender gender, int height, int age) {
-        this.name = name;
-        this.weight = weight;
-        this.gender = gender;
+        if(!name.isEmpty() && !name.isBlank()){
+            this.name = name;
+        } else{
+            throw new IllegalArgumentException("Name is empty or Blank")
+        }
+        if(weight <= 0 || height <= 0 || age <= 0){
+            this.weight = weight;
+        } else{
+            throw new IllegalArgumentException("Weight, height, or age is not valid a positive number");
+        }
         this.height = height;
         this.age = age;
+        this.gender = gender;
+        calculateBMR();
         this.week = new WeeklyTotal(bmr, weight);
     }
 

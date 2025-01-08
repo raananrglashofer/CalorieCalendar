@@ -1,5 +1,6 @@
 package com.example.calorie_calendar.controller;
 
+import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class CalendarController {
     User findByName(@PathVariable String name){
         Optional<User> user = userRepository.findByName(name);
         if(user.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new UserNotFoundException();
         }
         return user.get();
     }

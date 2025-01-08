@@ -7,6 +7,8 @@ import java.util.*;
 import com.example.calorie_calendar.calendar.*;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
+
 @Repository
 public class UserRepository {
 
@@ -24,6 +26,16 @@ public class UserRepository {
 
    public void create(User user){
        users.add(user);
+   }
+
+   public void update(User user, String name){
+       Optional<User> existingUser = findByName(name);
+       if(existingUser.isPresent()){
+           users.set(users.indexOf(existingUser.get()), user);
+       }
+   }
+   public void delete(String name){
+       users.removeIf(user -> user.getName().equals(name));
    }
 
    @PostConstruct

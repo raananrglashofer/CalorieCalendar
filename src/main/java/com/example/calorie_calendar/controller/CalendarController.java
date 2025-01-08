@@ -29,9 +29,23 @@ public class CalendarController {
         }
         return user.get();
     }
-
-    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
     void create(@RequestBody User user){
         userRepository.create(user);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{name}")
+    void update(@RequestBody User user, @PathVariable String name){
+        userRepository.update(user, name);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{name}")
+    void delete(@PathVariable String name){
+        userRepository.delete(name);
+    }
+
+
 }

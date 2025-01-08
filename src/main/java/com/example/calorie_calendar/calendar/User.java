@@ -8,7 +8,7 @@ public class User {
     private int age;
     private WeeklyTotal week;
     private final Gender gender;
-    enum Gender {MALE, FEMALE};
+    public enum Gender {MALE, FEMALE};
 
     public User(String name, double weight, Gender gender, int height, int age) {
         this.name = name;

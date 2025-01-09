@@ -5,21 +5,29 @@ import com.example.calorie_calendar.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.example.calorie_calendar.calendar.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/users")
-public class CalendarController {
+public class UserController {
     private final UserRepository userRepository;
 
-    public CalendarController(UserRepository userRepository){
+    public UserController(UserRepository userRepository){
         this.userRepository = userRepository;
     }
     @GetMapping("")
     List<User> findAll(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/{name}/week")
+    WeeklyTotal displayWeeklyTotal(@PathVariable String name){
+        Optional<User> user = userRepository.findByName(name);
+        if(user.isEmpty()){
+            throw new UserNotFoundException();
+        }
+        return user.get().getWeek();
     }
 
     @GetMapping("/{name}")

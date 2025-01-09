@@ -16,13 +16,12 @@ public class User {
         if(!name.isEmpty() && !name.isBlank()){
             this.name = name;
         } else{
-            throw new IllegalArgumentException("Name is empty or Blank")
+            throw new IllegalArgumentException("Name is empty or Blank");
         }
         if(weight <= 0 || height <= 0 || age <= 0){
-            this.weight = weight;
-        } else{
             throw new IllegalArgumentException("Weight, height, or age is not valid a positive number");
         }
+        this.weight = weight;
         this.height = height;
         this.age = age;
         this.gender = gender;

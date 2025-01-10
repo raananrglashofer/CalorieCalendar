@@ -28,8 +28,8 @@ public class UserRepository {
        users.add(user);
    }
 
-   public void update(User user, String name){
-       Optional<User> existingUser = findByName(name);
+   public void update(User user){
+       Optional<User> existingUser = findByName(user.getName());
        if(existingUser.isPresent()){
            users.set(users.indexOf(existingUser.get()), user);
        }

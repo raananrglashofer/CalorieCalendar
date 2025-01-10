@@ -1,7 +1,6 @@
 package com.example.calorie_calendar.calendar;
 
 import jakarta.validation.constraints.NotEmpty;
-
 public class User {
     private final String name;
     private double weight;

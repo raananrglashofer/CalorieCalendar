@@ -20,10 +20,10 @@ public class ActivityRepository {
         activities.add(activity);
     }
 
-    public Optional<List<Activity>> filterByDistance(double distance){
-        return Optional.of(activities.stream()
+    public List<Activity> filterByDistance(double distance){
+        return activities.stream()
                 .filter(activity -> activity.getDistance() >= distance)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     @PostConstruct

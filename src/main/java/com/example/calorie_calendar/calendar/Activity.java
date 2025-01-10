@@ -60,6 +60,7 @@ public class Activity {
     // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
     public void calculateCaloriesBurned(double weight){
         double durationInHours = duration.toMinutes() / 60.0;
-        this.caloriesBurned = (int) (met * weight * durationInHours);
+        double kilograms = weight/2.2;
+        this.caloriesBurned = (int) (met * kilograms * durationInHours);
     }
 }

@@ -3,6 +3,7 @@ package com.example.calorie_calendar.calendar;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
 
 public class DailyTotal {
     private final LocalDate date;
@@ -21,13 +22,13 @@ public class DailyTotal {
         this.weight = weight;
     }
 
-    public void addActivity(long time, double length, double speed){
-        Activity activity = new Activity(time, length, speed, weight);
+    public void addActivity(int duration, double distance, double speed){
+        Activity activity = new Activity(duration, distance, weight);
         int calories = activity.getCaloriesBurned();
         this.totalCalories += calories;
         this.activityCalories += calories;
         this.activities.add(activity);
-        this.miles += length;
+        this.miles += distance;
     }
 
     public LocalDate getDate() {

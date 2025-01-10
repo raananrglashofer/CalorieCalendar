@@ -7,16 +7,17 @@ import java.time.Duration;
 
 public class Activity {
     private Duration duration; // in hours
-    private double length;
+    private double distance;
     private int caloriesBurned;
     private double met;
 
-    public Activity(Duration time, double length, double weight){
-        if(time.toMinutes() <= 0 || length <+ 0 || weight <= 0){
+    public Activity(int duration, double distance, double weight){
+        if(duration <= 0 || distance <+ 0 || weight <= 0){
             throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
         }
+        Duration time = Duration.ofMinutes(duration);
         this.duration = time;
-        this.length = length;
+        this.distance = distance;
         setMet();
         calculateCaloriesBurned(weight);
     }
@@ -29,14 +30,18 @@ public class Activity {
         return duration;
     }
 
-    public double getLength() {
-        return length;
+    public double getDistance() {
+        return distance;
     }
 
     public void setMet(){
-        double speed = length / duration.toHours(); // this math could be wrong
-        String fileName = "met.csv";
+        double durationInHours = duration.toMinutes() / 60.0;
+        double speed = distance / durationInHours; // this math could be wrong
+        String fileName = "src/main/resources/met.csv";
         File file = new File(fileName);
+        if (!file.exists()) {
+            throw new IllegalArgumentException("MET file not found: " + fileName);
+        }
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
             while((line = br.readLine()) != null && this.met == 0){

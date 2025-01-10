@@ -5,6 +5,8 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.time.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class ActivityRepository {
@@ -18,13 +20,24 @@ public class ActivityRepository {
         activities.add(activity);
     }
 
+    public Optional<List<Activity>> filterByDistance(double distance){
+        return Optional.of(activities.stream()
+                .filter(activity -> activity.getDistance() >= distance)
+                .collect(Collectors.toList()));
+    }
+
     @PostConstruct
-    public void init(){
-        activities.add(new Activity(.5,
+    private void init(){
+        activities.add(new Activity(30,
             4.0,
-
-
+                168
         ));
+
+        activities.add(new Activity(60,
+                6.0,
+                168
+        ));
+
     }
 
 

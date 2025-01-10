@@ -13,7 +13,7 @@ public class DailyTotal {
     private final Day dayOfWeek;
     private double miles;
     private double weight;
-    enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
+    public enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
 
     public DailyTotal(double bmr, Day dayOfWeek, double weight){
         this.date = LocalDate.now();

@@ -3,6 +3,7 @@ package com.example.calorie_calendar.controller;
 import com.example.calorie_calendar.calendar.DailyTotal;
 import com.example.calorie_calendar.calendar.WeeklyTotal;
 import com.example.calorie_calendar.repository.SummaryRepository;
+import com.example.calorie_calendar.service.SummaryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +11,10 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/summaries")
 public class SummaryController {
-    private final SummaryRepository summaryRepository;
+    private final SummaryService summaryService;
 
-    public SummaryController(SummaryRepository summaryRepository){
-        this.summaryRepository = summaryRepository;
+    public SummaryController(SummaryService summaryService){
+        this.summaryService = summaryService;
     }
 
     @GetMapping("")
@@ -23,11 +24,11 @@ public class SummaryController {
 
     @GetMapping("/weekly")
     List<WeeklyTotal> findAllWeekly(){
-        return summaryRepository.findAllWeekly();
+        return summaryService.findAllWeekly();
     }
 
     @GetMapping("/daily")
     List<DailyTotal> findAllDaily(){
-        return summaryRepository.findAllDaily();
+        return summaryService.findAllDaily();
     }
 }

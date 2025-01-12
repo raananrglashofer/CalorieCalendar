@@ -42,14 +42,14 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{name}")
+    @PutMapping("")
     void update(@RequestBody User user){
         userService.update(user);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{name}")
-    void delete(@PathVariable String name){
+    @DeleteMapping("")
+    void delete(@RequestBody String name){
         userService.delete(name);
     }
 

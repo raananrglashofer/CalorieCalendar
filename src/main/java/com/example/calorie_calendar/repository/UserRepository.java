@@ -35,6 +35,7 @@ public class UserRepository {
        }
    }
    public void delete(String name){
+       System.out.println(name);
        users.removeIf(user -> user.getName().equals(name));
    }
 

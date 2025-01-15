@@ -1,12 +1,21 @@
 package com.example.calorie_calendar.calendar;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.*;
-
+@Entity
 public class DailyTotal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private final LocalDate date;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "weekly_total_id")
+    private WeeklyTotal weeklyTotal;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dailyTotal")
     private List<Activity> activities = new ArrayList<>();
     private int totalCalories;
     private int activityCalories;

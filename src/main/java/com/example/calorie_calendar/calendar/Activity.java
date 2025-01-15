@@ -1,11 +1,19 @@
 package com.example.calorie_calendar.calendar;
 
+import jakarta.persistence.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
-
+@Entity
 public class Activity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "daily_total_id")
+    private DailyTotal dailyTotal;
     private Duration duration; // in hours
     private double distance;
     private int caloriesBurned;

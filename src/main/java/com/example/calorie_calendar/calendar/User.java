@@ -1,9 +1,6 @@
 package com.example.calorie_calendar.calendar;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 @Entity
 public class User {
@@ -15,7 +12,9 @@ public class User {
     private int height;
     private int bmr;
     private int age;
-    private WeeklyTotal week;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "weekly_total_id")
+    private WeeklyTotal weeklyTotal;
     private final Gender gender;
     public enum Gender {MALE, FEMALE};
 
@@ -33,7 +32,7 @@ public class User {
         this.age = age;
         this.gender = gender;
         calculateBMR();
-        this.week = new WeeklyTotal(bmr, weight);
+        this.weeklyTotal = new WeeklyTotal(bmr, weight);
     }
 
     public String getName() {
@@ -45,7 +44,7 @@ public class User {
     }
 
     public WeeklyTotal getWeek() {
-        return week;
+        return weeklyTotal;
     }
 
     public int getBmr() {

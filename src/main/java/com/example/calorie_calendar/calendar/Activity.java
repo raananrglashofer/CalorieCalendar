@@ -14,7 +14,7 @@ public class Activity {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "daily_total_id")
-    private AppUser user;
+    private DailyTotal dailyTotal;
     private Duration duration; // in hours
     private double distance;
     private int caloriesBurned;

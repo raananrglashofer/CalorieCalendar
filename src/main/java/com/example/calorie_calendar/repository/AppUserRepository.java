@@ -43,11 +43,23 @@ public class AppUserRepository {
                AppUser.Gender.MALE,
                70,
                24));
+       users.get(0).getWeek().getDay(DailyTotal.Day.MONDAY).addActivity(32, 3.5);
+       users.get(0).getWeek().getDay(DailyTotal.Day.TUESDAY).addActivity(50, 5.3);
+       users.get(0).getWeek().getDay(DailyTotal.Day.THURSDAY).addActivity(70, 7.2);
+       users.get(0).getWeek().getDay(DailyTotal.Day.SUNDAY).addActivity(120, 14.0);
+       users.get(0).getWeek().updateCounts();
 
        users.add(new AppUser("Ben",
                150.0,
                AppUser.Gender.MALE,
                70,
                24));
+
+       users.get(1).getWeek().getDay(DailyTotal.Day.MONDAY).addActivity(80, 8.5);
+       users.get(1).getWeek().getDay(DailyTotal.Day.TUESDAY).addActivity(50, 5.3);
+       users.get(1).getWeek().getDay(DailyTotal.Day.THURSDAY).addActivity(100, 11.2);
+       users.get(1).getWeek().getDay(DailyTotal.Day.FRIDAY).addActivity(70, 7.2);
+       users.get(1).getWeek().getDay(DailyTotal.Day.SUNDAY).addActivity(200, 22.0);
+       users.get(1).getWeek().updateCounts();
    }
 }

@@ -32,7 +32,7 @@ public class DailyTotal {
         this.weight = weight;
     }
 
-    public void addActivity(int duration, double distance, double speed){
+    public void addActivity(int duration, double distance){
         Activity activity = new Activity(duration, distance, weight);
         int calories = activity.getCaloriesBurned();
         this.totalCalories += calories;

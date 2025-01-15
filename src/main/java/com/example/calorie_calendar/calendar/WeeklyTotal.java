@@ -18,6 +18,7 @@ public class WeeklyTotal {
     private List<DailyTotal> days = new ArrayList<>();
     private double totalMiles;
     private int activitiesCount;
+    private int averageCaloriesPerDay;
     public WeeklyTotal(double bmr, double weight){
         for(DailyTotal.Day day : DailyTotal.Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day, weight);
@@ -30,6 +31,7 @@ public class WeeklyTotal {
             totalCalories += dailyTotal.getTotalCalories();
             totalMiles += dailyTotal.getMiles();
             activitiesCount += dailyTotal.getActivities().size();
+            averageCaloriesPerDay = totalCalories/7;
         }
     }
 
@@ -52,5 +54,8 @@ public class WeeklyTotal {
 
     public int getActivitiesCount() {
         return activitiesCount;
+    }
+    public int getAverageCaloriesPerDay() {
+        return averageCaloriesPerDay;
     }
 }

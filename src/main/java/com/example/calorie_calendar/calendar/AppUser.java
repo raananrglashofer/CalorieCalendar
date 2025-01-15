@@ -1,9 +1,9 @@
 package com.example.calorie_calendar.calendar;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+
 @Entity
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,7 +18,7 @@ public class User {
     private final Gender gender;
     public enum Gender {MALE, FEMALE};
 
-    public User(String name, double weight, Gender gender, int height, int age) {
+    public AppUser(String name, double weight, Gender gender, int height, int age) {
         if(!name.isEmpty() && !name.isBlank()){
             this.name = name;
         } else{

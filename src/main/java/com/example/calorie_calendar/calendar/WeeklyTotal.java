@@ -1,5 +1,6 @@
 package com.example.calorie_calendar.calendar;
 
+
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ public class WeeklyTotal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int totalCalories;
     @OneToOne(mappedBy = "weeklyTotal", fetch = FetchType.LAZY)
-    private User user;
+    private AppUser user;
+    private int totalCalories;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
     private List<DailyTotal> days = new ArrayList<>();
     private double totalMiles;

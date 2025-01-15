@@ -1,5 +1,6 @@
 package com.example.calorie_calendar.calendar;
 
+
 import jakarta.persistence.*;
 
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ public class Activity {
     private long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "daily_total_id")
-    private DailyTotal dailyTotal;
+    private AppUser user;
     private Duration duration; // in hours
     private double distance;
     private int caloriesBurned;

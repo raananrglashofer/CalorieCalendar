@@ -1,35 +1,32 @@
 package com.example.calorie_calendar.repository;
 
-import com.example.calorie_calendar.calendar.WeeklyTotal;
 import jakarta.annotation.PostConstruct;
 
 import java.util.*;
 import com.example.calorie_calendar.calendar.*;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
-
 @Repository
-public class UserRepository {
+public class AppUserRepository {
 
-    private List<User> users = new ArrayList<>();
+    private List<AppUser> users = new ArrayList<>();
 
-   public List<User> findAll(){
+   public List<AppUser> findAll(){
        return users;
    }
 
-   public Optional<User> findByName(String name){
+   public Optional<AppUser> findByName(String name){
        return users.stream()
                .filter(user -> user.getName().equals(name))
                .findFirst();
    }
 
-   public void create(User user){
+   public void create(AppUser user){
        users.add(user);
    }
 
-   public void update(User user){
-       Optional<User> existingUser = findByName(user.getName());
+   public void update(AppUser user){
+       Optional<AppUser> existingUser = findByName(user.getName());
        if(existingUser.isPresent()){
            users.set(users.indexOf(existingUser.get()), user);
        }
@@ -41,15 +38,15 @@ public class UserRepository {
 
    @PostConstruct
     private void init(){
-       users.add(new User("Raanan",
+       users.add(new AppUser("Raanan",
                168.0,
-               User.Gender.MALE,
+               AppUser.Gender.MALE,
                70,
                24));
 
-       users.add(new User("Ben",
+       users.add(new AppUser("Ben",
                150.0,
-               User.Gender.MALE,
+               AppUser.Gender.MALE,
                70,
                24));
    }

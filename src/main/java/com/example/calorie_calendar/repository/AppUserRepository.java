@@ -1,5 +1,6 @@
 package com.example.calorie_calendar.repository;
 
+import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import jakarta.annotation.PostConstruct;
 
 import java.util.*;
@@ -36,6 +37,23 @@ public class AppUserRepository {
        users.removeIf(user -> user.getName().equals(name));
    }
 
+   public List<Activity> findActivitiesByUser(String userName){
+       AppUser user = findByName(userName).orElseThrow(UserNotFoundException::new);
+       return user.getActivities();
+   }
+
+   public void addActivityByUser(String userName, Activity activity){
+       AppUser user = findByName(userName).orElseThrow(UserNotFoundException::new);
+       user.addActivity(activity);
+   }
+
+   public WeeklyTotal findWeeklyTotalByUser(String userName){
+       AppUser user = findByName(userName).orElseThrow(UserNotFoundException::new);
+       return user.getWeek();
+   }
+
+
+
    @PostConstruct
     private void init(){
        users.add(new AppUser("Raanan",
@@ -43,6 +61,10 @@ public class AppUserRepository {
                AppUser.Gender.MALE,
                70,
                24));
+       addActivityByUser("Raanan", new Activity(32, 3.5, findByName("Raanan").get().getWeight()));
+       addActivityByUser("Raanan", new Activity(50, 5.3, findByName("Raanan").get().getWeight()));
+       addActivityByUser("Raanan", new Activity(70, 7.2, findByName("Raanan").get().getWeight()));
+       addActivityByUser("Raanan", new Activity(120, 14.0, findByName("Raanan").get().getWeight()));
        users.get(0).getWeek().getDay(DailyTotal.Day.MONDAY).addActivity(32, 3.5);
        users.get(0).getWeek().getDay(DailyTotal.Day.TUESDAY).addActivity(50, 5.3);
        users.get(0).getWeek().getDay(DailyTotal.Day.THURSDAY).addActivity(70, 7.2);

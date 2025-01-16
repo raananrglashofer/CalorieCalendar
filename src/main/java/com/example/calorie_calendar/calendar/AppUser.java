@@ -2,6 +2,9 @@ package com.example.calorie_calendar.calendar;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class AppUser {
     @Id
@@ -12,6 +15,7 @@ public class AppUser {
     private int height;
     private int bmr;
     private int age;
+    private List<Activity> activities = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "weekly_total_id")
     private WeeklyTotal weeklyTotal;
@@ -33,6 +37,14 @@ public class AppUser {
         this.gender = gender;
         calculateBMR();
         this.weeklyTotal = new WeeklyTotal(bmr, weight);
+    }
+
+    public List<Activity> getActivities(){
+        return this.activities;
+    }
+
+    public void addActivity(Activity activity){
+        this.activities.add(activity);
     }
 
     public String getName() {

@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Entity
 public class WeeklyTotal {
     @Id
@@ -15,19 +17,19 @@ public class WeeklyTotal {
     private AppUser user;
     private int totalCalories;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
-    private List<DailyTotal> days = new ArrayList<>();
+    private Map<Day, DailyTotal> days = new HashMap<>();
     private double totalMiles;
     private int activitiesCount;
     private int averageCaloriesPerDay;
     public WeeklyTotal(double bmr, double weight){
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day, weight);
-            days.add(newDay);
+            days.put(day, newDay);
         }
     }
 
     public void updateCounts(){
-        for(DailyTotal dailyTotal : days){
+        for(DailyTotal dailyTotal : days.values()){
             totalCalories += dailyTotal.getTotalCalories();
             totalMiles += dailyTotal.getMiles();
             activitiesCount += dailyTotal.getActivities().size();
@@ -36,16 +38,12 @@ public class WeeklyTotal {
     }
 
     public DailyTotal getDay(Day day) {
-        for(DailyTotal d : days){
-            if(d.getDayOfWeek() == day){
-                return d;
-            }
-        }
-        return null;
+        return days.get(day);
     }
 
     public void addActivityToDay(Activity activity, Day day){
-
+        days.get(day).addActivity(activity);
+        updateCounts();
     }
 
     public int getTotalCalories() {

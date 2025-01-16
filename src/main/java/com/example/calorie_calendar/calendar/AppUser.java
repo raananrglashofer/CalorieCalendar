@@ -43,9 +43,9 @@ public class AppUser {
         return this.activities;
     }
 
-    public void addActivity(Activity activity){
+    public void addActivity(Activity activity, Day day){
         this.activities.add(activity);
-        //this.weeklyTotal.
+        this.weeklyTotal.addActivityToDay(activity, day);
     }
 
     public String getName() {

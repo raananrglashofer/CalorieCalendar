@@ -31,13 +31,12 @@ public class DailyTotal {
         this.weight = weight;
     }
 
-    public void addActivity(int duration, double distance){
-        Activity activity = new Activity(duration, distance, weight);
+    public void addActivity(Activity activity){
         int calories = activity.getCaloriesBurned();
         this.totalCalories += calories;
         this.activityCalories += calories;
         this.activities.add(activity);
-        this.miles += distance;
+        this.miles += activity.getDistance();
     }
 
     public LocalDate getDate() {

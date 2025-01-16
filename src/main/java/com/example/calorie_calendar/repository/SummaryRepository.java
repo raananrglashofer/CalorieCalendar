@@ -1,7 +1,7 @@
 package com.example.calorie_calendar.repository;
 
 import com.example.calorie_calendar.calendar.DailyTotal;
-import com.example.calorie_calendar.calendar.DailyTotal.Day;
+import com.example.calorie_calendar.calendar.Day;
 import com.example.calorie_calendar.calendar.WeeklyTotal;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,7 @@ public class SummaryRepository {
         ));
 
         dailyTotals.add(new DailyTotal(2272,
-                DailyTotal.Day.MONDAY,
+                Day.MONDAY,
                 168.0
                 ));
         dailyTotals.add(new DailyTotal(2272,
@@ -61,7 +61,7 @@ public class SummaryRepository {
         ));
 
         dailyTotals.add(new DailyTotal(2177,
-                DailyTotal.Day.MONDAY,
+                Day.MONDAY,
                 150.0
         ));
         dailyTotals.add(new DailyTotal(2177,

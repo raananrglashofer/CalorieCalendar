@@ -45,6 +45,7 @@ public class AppUser {
 
     public void addActivity(Activity activity){
         this.activities.add(activity);
+        //this.weeklyTotal.
     }
 
     public String getName() {

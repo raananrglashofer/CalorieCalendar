@@ -65,10 +65,10 @@ public class AppUserRepository {
        addActivityByUser("Raanan", new Activity(50, 5.3, findByName("Raanan").get().getWeight()));
        addActivityByUser("Raanan", new Activity(70, 7.2, findByName("Raanan").get().getWeight()));
        addActivityByUser("Raanan", new Activity(120, 14.0, findByName("Raanan").get().getWeight()));
-       users.get(0).getWeek().getDay(DailyTotal.Day.MONDAY).addActivity(32, 3.5);
-       users.get(0).getWeek().getDay(DailyTotal.Day.TUESDAY).addActivity(50, 5.3);
-       users.get(0).getWeek().getDay(DailyTotal.Day.THURSDAY).addActivity(70, 7.2);
-       users.get(0).getWeek().getDay(DailyTotal.Day.SUNDAY).addActivity(120, 14.0);
+       users.get(0).getWeek().getDay(Day.MONDAY).addActivity(32, 3.5);
+       users.get(0).getWeek().getDay(Day.TUESDAY).addActivity(50, 5.3);
+       users.get(0).getWeek().getDay(Day.THURSDAY).addActivity(70, 7.2);
+       users.get(0).getWeek().getDay(Day.SUNDAY).addActivity(120, 14.0);
        users.get(0).getWeek().updateCounts();
 
        users.add(new AppUser("Ben",
@@ -77,11 +77,11 @@ public class AppUserRepository {
                70,
                24));
 
-       users.get(1).getWeek().getDay(DailyTotal.Day.MONDAY).addActivity(80, 8.5);
-       users.get(1).getWeek().getDay(DailyTotal.Day.TUESDAY).addActivity(50, 5.3);
-       users.get(1).getWeek().getDay(DailyTotal.Day.THURSDAY).addActivity(100, 11.2);
-       users.get(1).getWeek().getDay(DailyTotal.Day.FRIDAY).addActivity(70, 7.2);
-       users.get(1).getWeek().getDay(DailyTotal.Day.SUNDAY).addActivity(200, 22.0);
+       users.get(1).getWeek().getDay(Day.MONDAY).addActivity(80, 8.5);
+       users.get(1).getWeek().getDay(Day.TUESDAY).addActivity(50, 5.3);
+       users.get(1).getWeek().getDay(Day.THURSDAY).addActivity(100, 11.2);
+       users.get(1).getWeek().getDay(Day.FRIDAY).addActivity(70, 7.2);
+       users.get(1).getWeek().getDay(Day.SUNDAY).addActivity(200, 22.0);
        users.get(1).getWeek().updateCounts();
    }
 }

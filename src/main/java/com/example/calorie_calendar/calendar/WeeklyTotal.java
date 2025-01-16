@@ -20,7 +20,7 @@ public class WeeklyTotal {
     private int activitiesCount;
     private int averageCaloriesPerDay;
     public WeeklyTotal(double bmr, double weight){
-        for(DailyTotal.Day day : DailyTotal.Day.values()){
+        for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day, weight);
             days.add(newDay);
         }
@@ -35,13 +35,17 @@ public class WeeklyTotal {
         }
     }
 
-    public DailyTotal getDay(DailyTotal.Day day) {
+    public DailyTotal getDay(Day day) {
         for(DailyTotal d : days){
             if(d.getDayOfWeek() == day){
                 return d;
             }
         }
         return null;
+    }
+
+    public void addActivityToDay(Activity activity, Day day){
+
     }
 
     public int getTotalCalories() {

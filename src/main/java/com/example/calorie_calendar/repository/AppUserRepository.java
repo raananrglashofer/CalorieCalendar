@@ -4,6 +4,8 @@ import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import jakarta.annotation.PostConstruct;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import com.example.calorie_calendar.calendar.*;
 import org.springframework.stereotype.Repository;
 
@@ -50,6 +52,12 @@ public class AppUserRepository {
    public WeeklyTotal findWeeklyTotalByUser(String userName){
        AppUser user = findByName(userName).orElseThrow(UserNotFoundException::new);
        return user.getWeek();
+   }
+
+   public List<Activity> filterActivitiesByDistance(String userName, double distance){
+       return findActivitiesByUser(userName).stream()
+               .filter(activity -> activity.getDistance() >= distance)
+               .collect(Collectors.toList());
    }
 
    @PostConstruct

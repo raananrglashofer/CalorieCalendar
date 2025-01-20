@@ -21,9 +21,9 @@ public class AppUserController {
         return appUserService.findAll();
     }
 
-    @GetMapping("/{name}/week")
-    WeeklyTotal displayWeeklyTotal(@PathVariable String name){
-        return appUserService.getWeeklyTotal(name);
+    @GetMapping("/{userName}/weekly")
+    WeeklyTotal displayWeeklyTotal(@PathVariable String userName){
+        return appUserService.getWeeklyTotal(userName);
     }
 
     @GetMapping("/{name}")
@@ -52,5 +52,17 @@ public class AppUserController {
         appUserService.delete(name);
     }
 
-
+    @GetMapping("/{userName/activities}")
+    List<Activity> getActivitiesByUser(@PathVariable String userName){
+        return appUserService.findAllActivitiesByUser(userName);
+    }
+    @GetMapping("/{userName/activities/filter}")
+    List<Activity> getActivitiesByUseByDistance(@PathVariable String userName, @RequestBody double distance){
+        return appUserService.filterByDistanceByUser(userName, distance);
+    }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/{userName}/activities")
+    void addActivityByUser(@PathVariable String userName, @RequestBody Activity activity, @RequestBody Day day){
+        appUserService.addActivityByUser(userName, activity, day);
+    }
 }

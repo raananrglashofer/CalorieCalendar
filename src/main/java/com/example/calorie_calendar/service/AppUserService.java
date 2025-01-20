@@ -14,13 +14,8 @@ public class AppUserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public WeeklyTotal getWeeklyTotal(String name){
-        Optional<AppUser> user = appUserRepository.findByName(name);
-        if(user.isEmpty()){
-            throw new UserNotFoundException();
-        }
-        WeeklyTotal week = user.get().getWeek();
-        return week;
+    public WeeklyTotal getWeeklyTotal(String userName){
+        return appUserRepository.findWeeklyTotalByUser(userName);
     }
 
     public List<AppUser> findAll(){
@@ -42,8 +37,15 @@ public class AppUserService {
     public void update(AppUser user){
         appUserRepository.update(user);
     }
+    public List<Activity> findAllActivitiesByUser(String userName){
+        return appUserRepository.findActivitiesByUser(userName);
+    }
 
+    public List<Activity> filterByDistanceByUser(String userName, double distance){
+        return appUserRepository.filterActivitiesByDistance(userName, distance);
+    }
 
-
-
+    public void addActivityByUser(String userName, Activity activity, Day day){
+        this.appUserRepository.addActivityByUser(userName, activity, day);
+    }
 }

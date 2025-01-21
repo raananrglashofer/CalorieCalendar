@@ -60,6 +60,8 @@ public class AppUserRepository {
                .collect(Collectors.toList());
    }
 
+
+
    @PostConstruct
     private void init(){
        users.add(new AppUser("Raanan",

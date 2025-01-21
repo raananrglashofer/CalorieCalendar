@@ -15,6 +15,7 @@ public class AppUser {
     private int height;
     private int bmr;
     private int age;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Activity> activities = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "weekly_total_id")

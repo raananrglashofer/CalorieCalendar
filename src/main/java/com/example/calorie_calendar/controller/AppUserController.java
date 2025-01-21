@@ -1,5 +1,6 @@
 package com.example.calorie_calendar.controller;
 
+import com.example.calorie_calendar.dto.AddActivityRequest;
 import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.service.AppUserService;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,6 @@ public class AppUserController {
     @GetMapping("")
     List<AppUser> findAll(){
         return appUserService.findAll();
-    }
-
-    @GetMapping("/{userName}/weekly")
-    WeeklyTotal displayWeeklyTotal(@PathVariable String userName){
-        return appUserService.getWeeklyTotal(userName);
     }
 
     @GetMapping("/{name}")
@@ -52,17 +48,22 @@ public class AppUserController {
         appUserService.delete(name);
     }
 
-    @GetMapping("/{userName/activities}")
+    @GetMapping("/{userName}/activities")
     List<Activity> getActivitiesByUser(@PathVariable String userName){
         return appUserService.findAllActivitiesByUser(userName);
     }
-    @GetMapping("/{userName/activities/filter}")
+    @GetMapping("/{userName}/activities/filter")
     List<Activity> getActivitiesByUseByDistance(@PathVariable String userName, @RequestBody double distance){
         return appUserService.filterByDistanceByUser(userName, distance);
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userName}/activities")
-    void addActivityByUser(@PathVariable String userName, @RequestBody Activity activity, @RequestBody Day day){
-        appUserService.addActivityByUser(userName, activity, day);
+    void addActivityByUser(@PathVariable String userName, @RequestBody AddActivityRequest request){
+        appUserService.addActivityByUser(userName, request.getActivity(), request.getDay());
+    }
+
+    @GetMapping("/{userName}/weekly")
+    WeeklyTotal displayWeeklyTotal(@PathVariable String userName){
+        return appUserService.getWeeklyTotal(userName);
     }
 }

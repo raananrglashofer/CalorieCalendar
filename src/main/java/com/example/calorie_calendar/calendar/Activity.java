@@ -21,9 +21,9 @@ public class Activity {
     private double met;
 
     public Activity(int duration, double distance, double weight){
-        if(duration <= 0 || distance <+ 0 || weight <= 0){
-            throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
-        }
+//        if(duration <= 0 || distance <= 0 || weight <= 0){
+//            throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
+//        }
         Duration time = Duration.ofMinutes(duration);
         this.duration = time;
         this.distance = distance;

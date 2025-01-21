@@ -60,7 +60,9 @@ public class AppUserRepository {
                .collect(Collectors.toList());
    }
 
-
+    public void removeActivityByUser(String userName, Activity activity){
+        findActivitiesByUser(userName).remove(activity);
+    }
 
    @PostConstruct
     private void init(){

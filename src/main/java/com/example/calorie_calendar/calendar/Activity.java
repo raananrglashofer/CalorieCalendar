@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.time.Duration;
+import java.util.Objects;
+
 @Entity
 public class Activity {
     @Id
@@ -21,9 +23,9 @@ public class Activity {
     private double met;
 
     public Activity(int duration, double distance, double weight){
-//        if(duration <= 0 || distance <= 0 || weight <= 0){
-//            throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
-//        }
+        if(duration <= 0 || distance <= 0 || weight <= 0){
+            throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
+        }
         Duration time = Duration.ofMinutes(duration);
         this.duration = time;
         this.distance = distance;
@@ -71,5 +73,18 @@ public class Activity {
         double durationInHours = duration.toMinutes() / 60.0;
         double kilograms = weight/2.2;
         this.caloriesBurned = (int) (met * kilograms * durationInHours);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Activity activity = (Activity) o;
+        return Double.compare(activity.distance, distance) == 0 && duration.equals(activity.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(duration, distance);
     }
 }

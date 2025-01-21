@@ -48,4 +48,8 @@ public class AppUserService {
     public void addActivityByUser(String userName, Activity activity, Day day){
         this.appUserRepository.addActivityByUser(userName, activity, day);
     }
+
+    public void removeActivityByUser(String userName, Activity activity){
+        this.appUserRepository.removeActivityByUser(userName, activity);
+    }
 }

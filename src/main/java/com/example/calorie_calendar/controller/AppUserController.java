@@ -66,4 +66,10 @@ public class AppUserController {
     WeeklyTotal displayWeeklyTotal(@PathVariable String userName){
         return appUserService.getWeeklyTotal(userName);
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{userName}/activities")
+    void removeActivityByUser(@PathVariable String userName, @RequestBody Activity activity){
+        this.appUserService.removeActivityByUser(userName, activity);
+    }
 }

@@ -21,20 +21,20 @@ public class WeeklyTotal {
     private double totalMiles;
     private int activitiesCount;
     private int averageCaloriesPerDay;
+    private double bmr;
     public WeeklyTotal(double bmr, double weight){
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day, weight);
             days.put(day, newDay);
         }
+        this.bmr = bmr;
     }
 
-    public void updateCounts(){
-        for(DailyTotal dailyTotal : days.values()){
-            totalCalories += dailyTotal.getTotalCalories();
-            totalMiles += dailyTotal.getMiles();
-            activitiesCount += dailyTotal.getActivities().size();
-            averageCaloriesPerDay = totalCalories/7;
-        }
+    public void updateCounts(Activity activity){
+        totalCalories += activity.getCaloriesBurned();
+        totalMiles += activity.getDistance();
+        activitiesCount++;
+        averageCaloriesPerDay = (int) ((totalCalories/7) + bmr);
     }
 
     public DailyTotal getDay(Day day) {
@@ -43,7 +43,7 @@ public class WeeklyTotal {
 
     public void addActivityToDay(Activity activity, Day day){
         days.get(day).addActivity(activity);
-        updateCounts();
+        updateCounts(activity);
     }
 
     public int getTotalCalories() {

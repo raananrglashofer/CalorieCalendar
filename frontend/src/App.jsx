@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Home from './components/Home';
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  // Fetch data from your Spring Boot backend
-  useEffect(() => {
-    fetch('/api/users') // Adjust the endpoint to match your Spring Boot API
-      .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error('Error fetching users:', error));
-  }, []);
-
-  return (
+    return (
     <div>
-      <h1>Calorie Calendar</h1>
-      <h2>User List</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.name}</li>
-        ))}
-      </ul>
+        <Home />
     </div>
   );
 }

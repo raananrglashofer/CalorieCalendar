@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Home from './components/Home';
+import Users from './components/Users';
 
 function App() {
     return (
     <div>
-        <Home />
+        <Users />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import React, {useEffect, UseState} from "react";
+import React, { useEffect, useState } from "react";
 import apiService from "../services/apiService";
 
 const Users = () => {
-    const [message, setMessage] = useState('Loading...'); 
+    const [message, setMessage] = useState(); 
 
     useEffect(() => {
         fetchUsers();
@@ -12,10 +12,8 @@ const Users = () => {
         try{
             const response = await apiService.getUsers();
             console.log(response.data);
-            setMessage('correct');
         } catch(error){
             console.error('Error fetching users:', error);
-            setMessage('incorrecct');
         }
     };
     return(

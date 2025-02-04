@@ -10,7 +10,8 @@ public class WeeklyTotal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne(mappedBy = "weeklyTotal", fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
     private AppUser user;
     private int totalCalories;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
@@ -19,12 +20,15 @@ public class WeeklyTotal {
     private int activitiesCount;
     private int averageCaloriesPerDay;
     private double bmr;
-    public WeeklyTotal(double bmr, double weight){
+    public WeeklyTotal() {
+        // for database
+    }
+    public WeeklyTotal(AppUser user){
         for(Day day : Day.values()){
-            DailyTotal newDay = new DailyTotal(bmr, day, weight);
+            DailyTotal newDay = new DailyTotal(bmr, day, user.getWeight());
             days.put(day, newDay);
         }
-        this.bmr = bmr;
+        this.bmr = user.getBmr();
     }
 
     public void updateCounts(Activity activity){

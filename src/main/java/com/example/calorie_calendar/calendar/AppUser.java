@@ -19,8 +19,7 @@ public class AppUser {
     private int age;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Activity> activities = new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "weekly_total_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private WeeklyTotal weeklyTotal;
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -43,7 +42,7 @@ public class AppUser {
         this.age = age;
         this.gender = gender;
         calculateBMR();
-        this.weeklyTotal = new WeeklyTotal(bmr, weight);
+        this.weeklyTotal = new WeeklyTotal(this);
     }
 
     public List<Activity> getActivities(){

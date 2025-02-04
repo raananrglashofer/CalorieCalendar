@@ -19,15 +19,14 @@ public class DailyTotal {
     private List<Activity> activities = new ArrayList<>();
     private int totalCalories;
     private int activityCalories;
+    @Enumerated(EnumType.STRING)
     private final Day dayOfWeek;
     private double miles;
-    private double weight;
 
-    public DailyTotal(double bmr, Day dayOfWeek, double weight){
+    public DailyTotal(double bmr, Day dayOfWeek){
         this.date = LocalDate.now();
         this.totalCalories += bmr;
         this.dayOfWeek = dayOfWeek;
-        this.weight = weight;
     }
 
     public void addActivity(Activity activity){
@@ -56,5 +55,8 @@ public class DailyTotal {
 
     public double getMiles(){
         return miles;
+    }
+    public int getActivityCalories() {
+        return activityCalories;
     }
 }

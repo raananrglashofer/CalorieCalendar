@@ -13,29 +13,29 @@ public class WeeklyTotal {
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     private AppUser user;
-    private int totalCalories;
+    private int activeCalories = 0;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
     private Map<Day, DailyTotal> days = new HashMap<>();
-    private double totalMiles;
-    private int activitiesCount;
-    private int averageCaloriesPerDay;
-    private double bmr;
+    private double totalMiles = 0;
+    private int activitiesCount = 0;
+    private int averageCaloriesPerDay = 0;
+    private double bmr = 0;
     public WeeklyTotal() {
         // for database
     }
     public WeeklyTotal(AppUser user){
         for(Day day : Day.values()){
-            DailyTotal newDay = new DailyTotal(bmr, day, user.getWeight());
+            DailyTotal newDay = new DailyTotal(bmr, day);
             days.put(day, newDay);
         }
         this.bmr = user.getBmr();
     }
 
     public void updateCounts(Activity activity){
-        totalCalories += activity.getCaloriesBurned();
+        activeCalories += activity.getCaloriesBurned();
         totalMiles += activity.getDistance();
         activitiesCount++;
-        averageCaloriesPerDay = (int) ((totalCalories/7) + bmr);
+        averageCaloriesPerDay = (int) ((activeCalories/7) + bmr);
     }
 
     public DailyTotal getDay(Day day) {
@@ -47,8 +47,8 @@ public class WeeklyTotal {
         updateCounts(activity);
     }
 
-    public int getTotalCalories() {
-        return totalCalories;
+    public int getActiveCalories() {
+        return activeCalories;
     }
 
     public double getTotalMiles() {

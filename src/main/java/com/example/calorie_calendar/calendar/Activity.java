@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.time.Duration;
 import java.util.Objects;
 
 @Entity
+@Table(name = "activities")
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,17 +17,16 @@ public class Activity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "daily_total_id")
     private DailyTotal dailyTotal;
-    private Duration duration; // in hours
-    private double distance;
-    private int caloriesBurned;
-    private double met;
+    private int duration = 0; // in minutes
+    private double distance = 0;
+    private int caloriesBurned = 0;
+    private double met = 0;
 
     public Activity(int duration, double distance, double weight){
         if(duration <= 0 || distance <= 0 || weight <= 0){
             throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
         }
-        Duration time = Duration.ofMinutes(duration);
-        this.duration = time;
+        this.duration = duration;
         this.distance = distance;
         setMet();
         calculateCaloriesBurned(weight);
@@ -37,7 +36,7 @@ public class Activity {
         return caloriesBurned;
     }
 
-    public Duration getTime() {
+    public int getTime() {
         return duration;
     }
 
@@ -46,7 +45,7 @@ public class Activity {
     }
 
     public void setMet(){
-        double durationInHours = duration.toMinutes() / 60.0;
+        double durationInHours = duration / 60.0;
         double speed = distance / durationInHours; // this math could be wrong
         String fileName = "src/main/resources/met.csv";
         File file = new File(fileName);
@@ -70,7 +69,7 @@ public class Activity {
 
     // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
     public void calculateCaloriesBurned(double weight){
-        double durationInHours = duration.toMinutes() / 60.0;
+        double durationInHours = duration / 60.0;
         double kilograms = weight/2.2;
         this.caloriesBurned = (int) (met * kilograms * durationInHours);
     }
@@ -80,7 +79,7 @@ public class Activity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Activity activity = (Activity) o;
-        return Double.compare(activity.distance, distance) == 0 && duration.equals(activity.duration);
+        return Double.compare(activity.distance, distance) == 0 && duration == activity.duration;
     }
 
     @Override

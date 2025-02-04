@@ -6,10 +6,13 @@ import com.example.calorie_calendar.service.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.example.calorie_calendar.calendar.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/users")
 public class AppUserController {
     private final AppUserService appUserService;

@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private final String name;
+    private String name;
     private double weight;
     private int height;
+    @Column(nullable = true)
     private int bmr;
     private int age;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -20,8 +22,12 @@ public class AppUser {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "weekly_total_id")
     private WeeklyTotal weeklyTotal;
-    private final Gender gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     public enum Gender {MALE, FEMALE};
+    public AppUser() {
+        // for database
+    }
 
     public AppUser(String name, double weight, Gender gender, int height, int age) {
         if(!name.isEmpty() && !name.isBlank()){

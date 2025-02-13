@@ -4,7 +4,6 @@ import com.example.calorie_calendar.calendar.*;
 import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.repository.AppUserRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;

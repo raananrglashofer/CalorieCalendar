@@ -5,6 +5,7 @@ import com.example.calorie_calendar.calendar.Activity;
 import com.example.calorie_calendar.calendar.Day;
 
 public class AddActivityRequest {
+    private long id;
     private Activity activity;
     private Day day;
 
@@ -23,5 +24,12 @@ public class AddActivityRequest {
 
     public void setDay(Day day) {
         this.day = day;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    public long getId() {
+        return id;
     }
 }

@@ -22,7 +22,12 @@ public class WeeklyTotal {
     private double bmr = 0;
     public WeeklyTotal() {
         // for database
+        for(Day day : Day.values()){
+            DailyTotal newDay = new DailyTotal(bmr, day);
+            days.put(day, newDay);
+        }
     }
+    
     public WeeklyTotal(AppUser user){
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day);

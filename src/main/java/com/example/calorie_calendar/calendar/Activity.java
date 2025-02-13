@@ -21,6 +21,9 @@ public class Activity {
     private double distance = 0;
     private int caloriesBurned = 0;
     private double met = 0;
+    public Activity(){
+        // for database
+    }
 
     public Activity(int duration, double distance, double weight){
         if(duration <= 0 || distance <= 0 || weight <= 0){

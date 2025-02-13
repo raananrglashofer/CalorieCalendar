@@ -20,8 +20,12 @@ public class DailyTotal {
     private int totalCalories;
     private int activityCalories;
     @Enumerated(EnumType.STRING)
-    private final Day dayOfWeek;
+    private Day dayOfWeek = null;
     private double miles;
+
+    public DailyTotal(){
+        this.date = LocalDate.now();
+    }
 
     public DailyTotal(double bmr, Day dayOfWeek){
         this.date = LocalDate.now();

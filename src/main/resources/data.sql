@@ -1,6 +1,6 @@
-insert into users (name, weight, height, age, gender) values ('Raanan', 168, 70, 24, 'MALE');
-insert into users (name, weight, height, age, gender) values ('Ben', 150, 70, 24, 'MALE');
-insert into users (name, weight, height, age, gender) values ('Akiva', 200, 69, 26, 'MALE');
+insert into users (name, weight, height, age, gender, bmr) values ('Raanan', 168, 70, 24, 'MALE', 0);
+insert into users (name, weight, height, age, gender, bmr) values ('Ben', 150, 70, 24, 'MALE', 0);
+insert into users (name, weight, height, age, gender, bmr) values ('Akiva', 200, 69, 26, 'MALE', 0);
 
 INSERT INTO weekly_total (user_id, active_calories, activities_count, average_calories_per_day, total_miles, bmr) 
 VALUES (1, 0, 0, 0, 0, 0);
@@ -32,4 +32,4 @@ VALUES (6, 1, '2024-01-06', 'SATURDAY', 0, 0, 0);
 INSERT INTO daily_total (id, weekly_total_id, date, day_of_week, activity_calories, miles, total_calories) 
 VALUES (7, 1, '2024-01-07', 'SUNDAY', 0, 0, 0);
 
-insert into activities (calories_burned, distance, duration, met, daily_total_id) values (0, 0, 0, 0, 1);
+insert into activities (calories_burned, distance, duration, met, daily_total_id) values (200, 0, 0, 0, 1);

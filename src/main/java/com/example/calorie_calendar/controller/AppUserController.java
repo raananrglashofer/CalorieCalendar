@@ -42,37 +42,38 @@ public class AppUserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("")
     void update(@RequestBody AppUser user){
-        appUserService.update(user);
+        appUserService.updateUser(user);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("")
-    void delete(@RequestBody String name){
-        appUserService.delete(name);
+    void delete(@RequestBody Long id){
+        appUserService.deleteById(id);
     }
 
-    @GetMapping("/{userName}/activities")
-    List<Activity> getActivitiesByUser(@PathVariable String userName){
-        return appUserService.findAllActivitiesByUser(userName);
+    @GetMapping("/{ID}/activities")
+    List<Activity> getActivitiesByUser(@PathVariable Long id){
+        return appUserService.findAllActivitiesByUserID(id);
     }
-    @GetMapping("/{userName}/activities/filter")
-    List<Activity> getActivitiesByUseByDistance(@PathVariable String userName, @RequestBody double distance){
-        return appUserService.filterByDistanceByUser(userName, distance);
+    
+    @GetMapping("/{id}/activities/filter")
+    List<Activity> getActivitiesByUseByDistance(@PathVariable Long id, @RequestBody double distance){
+        return appUserService.filterByDistanceByUserID(id, distance);
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{userName}/activities")
-    void addActivityByUser(@PathVariable String userName, @RequestBody AddActivityRequest request){
-        appUserService.addActivityByUser(userName, request.getActivity(), request.getDay());
+    @PostMapping("/{id}/activities")
+    void addActivityByUser(@PathVariable Long id, @RequestBody AddActivityRequest request){
+        appUserService.addActivityByUser(id, request.getActivity(), request.getDay());
     }
 
-    @GetMapping("/{userName}/weekly")
-    WeeklyTotal displayWeeklyTotal(@PathVariable String userName){
-        return appUserService.getWeeklyTotal(userName);
+    @GetMapping("/{id}/weekly")
+    WeeklyTotal displayWeeklyTotal(@PathVariable Long id){
+        return appUserService.getWeeklyTotal(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{userName}/activities")
-    void removeActivityByUser(@PathVariable String userName, @RequestBody Activity activity){
-        this.appUserService.removeActivityByUser(userName, activity);
+    @DeleteMapping("/{id}/activities")
+    void removeActivityByUser(@PathVariable Long id, @RequestBody Activity activity){
+        this.appUserService.removeActivityByUser(id, activity);
     }
 }

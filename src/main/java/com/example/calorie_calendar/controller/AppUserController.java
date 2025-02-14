@@ -1,13 +1,11 @@
 package com.example.calorie_calendar.controller;
 
-import com.example.calorie_calendar.dto.AddActivityRequest;
+import com.example.calorie_calendar.dto.*;
 import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.service.AppUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.example.calorie_calendar.calendar.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 
 import java.util.*;
 
@@ -57,8 +55,8 @@ public class AppUserController {
     }
     
     @GetMapping("/activities/filter")
-    List<Activity> getActivitiesByUseByDistance(@RequestBody Long id, @RequestBody double distance){
-        return appUserService.filterByDistanceByUserID(id, distance);
+    List<Activity> getActivitiesByUseByDistance(@RequestBody FilterByDistanceRequest request){
+        return appUserService.filterByDistanceByUserID(request.getId(), request.getDistance());
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/activities")

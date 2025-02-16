@@ -15,7 +15,7 @@ public class WeeklyTotal {
     private AppUser user;
     private int activeCalories = 0;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
-    private Map<Day, DailyTotal> days = new HashMap<>();
+    private List<DailyTotal> days = new ArrayList<>();
     private double totalMiles = 0;
     private int activitiesCount = 0;
     private int averageCaloriesPerDay = 0;
@@ -24,14 +24,14 @@ public class WeeklyTotal {
         // for database
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day);
-            days.put(day, newDay);
+            days.add(newDay);
         }
     }
-    
+
     public WeeklyTotal(AppUser user){
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day);
-            days.put(day, newDay);
+            days.add(newDay);
         }
         this.bmr = user.getBmr();
     }
@@ -43,12 +43,18 @@ public class WeeklyTotal {
         averageCaloriesPerDay = (int) ((activeCalories/7) + bmr);
     }
 
-    public DailyTotal getDay(Day day) {
-        return days.get(day);
+    public DailyTotal getDay(Day curDay) {
+        for(int i = 0; i < days.size(); i++){
+            if(curDay == days.get(i).getDayOfWeek()){
+                return days.get(i);
+            }
+
+        }
+        return null;
     }
 
     public void addActivityToDay(Activity activity, Day day){
-        days.get(day).addActivity(activity);
+        getDay(day).addActivity(activity);
         updateCounts(activity);
     }
 

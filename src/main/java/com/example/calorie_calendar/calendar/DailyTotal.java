@@ -35,6 +35,7 @@ public class DailyTotal {
 
     public void addActivity(Activity activity){
         int calories = activity.getCaloriesBurned();
+        System.out.println("Calories: " + calories);
         this.totalCalories += calories;
         this.activityCalories += calories;
         this.activities.add(activity);

@@ -18,6 +18,7 @@ public class AppUserController {
     public AppUserController(AppUserService appUserService){
         this.appUserService = appUserService;
     }
+
     @GetMapping("")
     List<AppUser> findAll(){
         return appUserService.findAll();
@@ -31,6 +32,7 @@ public class AppUserController {
         }
         return user.get();
     }
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void create(@RequestBody AppUser user){
@@ -58,6 +60,7 @@ public class AppUserController {
     List<Activity> getActivitiesByUseByDistance(@RequestBody FilterByDistanceRequest request){
         return appUserService.filterByDistanceByUserID(request.getId(), request.getDistance());
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/activities")
     void addActivityByUser(@RequestBody AddActivityRequest request){

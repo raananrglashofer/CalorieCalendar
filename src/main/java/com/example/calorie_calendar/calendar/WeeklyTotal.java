@@ -24,6 +24,7 @@ public class WeeklyTotal {
         // for database
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day);
+            newDay.setWeek(this);
             days.add(newDay);
         }
     }
@@ -31,6 +32,7 @@ public class WeeklyTotal {
     public WeeklyTotal(AppUser user){
         for(Day day : Day.values()){
             DailyTotal newDay = new DailyTotal(bmr, day);
+            newDay.setWeek(this);
             days.add(newDay);
         }
         this.bmr = user.getBmr();
@@ -75,5 +77,9 @@ public class WeeklyTotal {
 
     public double getWeight(){
         return user.getWeight();
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 }

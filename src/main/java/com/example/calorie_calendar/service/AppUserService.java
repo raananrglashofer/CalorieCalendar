@@ -31,8 +31,14 @@ public class AppUserService {
         return appUserRepository.findByName(name);
     }
 
-    public void create(AppUser user){
-        appUserRepository.save(user);
+    public AppUser create(AppUser user) {
+        // Create WeeklyTotal and associate it with user
+        WeeklyTotal weeklyTotal = new WeeklyTotal();
+        weeklyTotal.setUser(user); // Ensure user_id is set in WeeklyTotal
+    
+        user.setWeek(weeklyTotal);
+        
+        return appUserRepository.save(user);
     }
 
     public void deleteById(Long id){
@@ -76,4 +82,5 @@ public void updateUser(AppUser user) {
         user.getActivities().remove(activity);
         this.appUserRepository.save(user);
     }
+    
 }

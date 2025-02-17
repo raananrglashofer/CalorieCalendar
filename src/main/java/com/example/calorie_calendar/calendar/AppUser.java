@@ -26,6 +26,7 @@ public class AppUser {
     public enum Gender {MALE, FEMALE};
     public AppUser() {
         // for database
+        calculateBMR();
         this.weeklyTotal = new WeeklyTotal(this);
     }
 

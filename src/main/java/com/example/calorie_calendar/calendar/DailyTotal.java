@@ -66,7 +66,12 @@ public class DailyTotal {
     public double getMiles(){
         return miles;
     }
+
     public int getActivityCalories() {
         return activityCalories;
+    }
+    
+    public void setWeek(WeeklyTotal weeklyTotal){
+        this.weeklyTotal = weeklyTotal;
     }
 }

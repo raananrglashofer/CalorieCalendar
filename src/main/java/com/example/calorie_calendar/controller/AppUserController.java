@@ -32,7 +32,7 @@ public class AppUserController {
         }
         return user.get();
     }
-    
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void create(@RequestBody AppUser user){
@@ -57,7 +57,7 @@ public class AppUserController {
     }
     
     @GetMapping("/activities/filter")
-    List<Activity> getActivitiesByUseByDistance(@RequestBody FilterByDistanceRequest request){
+    List<Activity> getActivitiesByUserByDistance(@RequestBody FilterByDistanceRequest request){
         return appUserService.filterByDistanceByUserID(request.getId(), request.getDistance());
     }
 

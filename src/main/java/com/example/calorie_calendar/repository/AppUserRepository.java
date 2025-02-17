@@ -19,4 +19,8 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
    @Query("SELECT a FROM AppUser u JOIN u.activities a WHERE u.id = :id AND a.distance >= :distance")
    List<Activity> filterActivitiesByDistance(@Param("id") Long id, @Param("distance") double distance);
+
+   Optional<Activity> findActivityById(Long id);
+   
+   void saveActivity(Activity activity);
 }

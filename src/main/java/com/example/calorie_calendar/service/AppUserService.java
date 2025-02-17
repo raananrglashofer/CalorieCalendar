@@ -7,6 +7,10 @@ import com.example.calorie_calendar.repository.AppUserRepository;
 import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.*;
 
 @Service
@@ -82,5 +86,45 @@ public void updateUser(AppUser user) {
         user.getActivities().remove(activity);
         this.appUserRepository.save(user);
     }
-    
+
+    @Transactional
+    public void processActivity(Activity activity){
+        setMet(activity);
+        setCaloriesForWorkout(activity);
+        appUserRepository.saveActivity(activity);
+    }
+    // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
+    private void setCaloriesForWorkout(Activity activity){
+        double durationInHours = activity.getTime() / 60.0;
+        double kilograms = activity.getWeight()/2.2;
+        int calories = (int) (activity.getMET() * kilograms * durationInHours);
+        activity.setCaloriesBurned(calories);
+    }
+
+    private void setMet(Activity activity){
+        double durationInHours = activity.getTime() / 60.0;
+        double speed = activity.getDistance() / durationInHours; // this math could be wrong
+        String fileName = "src/main/resources/met.csv";
+        File file = new File(fileName);
+        if (!file.exists()) {
+            throw new IllegalArgumentException("MET file not found: " + fileName);
+        }
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+            String line;
+            double met = 0;
+            while((line = br.readLine()) != null && met == 0){
+                String[] split = line.split(",");
+                double tempo = Double.parseDouble(split[0]);
+                if(speed >= tempo && speed < tempo + 1){
+                    double curMet = Double.parseDouble(split[1]);
+                    met = curMet;
+                } else if(speed > 9.0){ // placeholder until i update the csv file for mets 
+                    met = 12.8;
+                }
+            }
+            activity.setMet(met);
+        } catch(Exception e){
+            throw new RuntimeException();
+        } 
+    }
 }

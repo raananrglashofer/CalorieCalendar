@@ -21,6 +21,7 @@ public class Activity {
     private double distance = 0;
     private int caloriesBurned = 0;
     private double met = 0;
+    private double weight = 0;
     public Activity(){
         // for database
     }
@@ -29,13 +30,15 @@ public class Activity {
         if(duration <= 0 || distance <= 0 || weight <= 0){
             throw new IllegalArgumentException("Time, Length, Speed, or Weight are not a positive number");
         }
-        this.duration = duration;
-        this.distance = distance;
+        setDuration(duration);
+        setDistance(distance);
+        setWeight(weight);
         setMet();
-        calculateCaloriesBurned(weight);
+        calculateCaloriesBurned();
     }
 
     public int getCaloriesBurned() {
+        calculateCaloriesBurned();
         return caloriesBurned;
     }
 
@@ -45,6 +48,26 @@ public class Activity {
 
     public double getDistance() {
         return distance;
+    }
+
+    public void setDistance(double distance){
+        this.distance = distance;
+    }
+
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
+
+    public void setCaloriesBurned(int caloriesBurned){
+        this.caloriesBurned = caloriesBurned;
+    }
+
+    public void setDailyTotal(DailyTotal dailyTotal){
+        this.dailyTotal = dailyTotal;
+    }
+
+    public void setWeight(double weight){
+        this.weight = weight;
     }
 
     public void setMet(){
@@ -63,6 +86,8 @@ public class Activity {
                 if(speed >= tempo && speed < tempo + 1){
                     double curMet = Double.parseDouble(split[1]);
                     this.met = curMet;
+                } else if(speed > 9.0){ // placeholder until i update the csv file for mets 
+                    this.met = 12.8;
                 }
             }
         } catch(Exception e){
@@ -71,9 +96,9 @@ public class Activity {
     }
 
     // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
-    public void calculateCaloriesBurned(double weight){
+    public void calculateCaloriesBurned(){
         double durationInHours = duration / 60.0;
-        double kilograms = weight/2.2;
+        double kilograms = this.weight/2.2;
         this.caloriesBurned = (int) (met * kilograms * durationInHours);
     }
 

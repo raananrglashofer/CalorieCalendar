@@ -31,5 +31,3 @@ VALUES (6, 1, '2024-01-06', 'SATURDAY', 0, 0, 0);
 
 INSERT INTO daily_total (id, weekly_total_id, date, day_of_week, activity_calories, miles, total_calories) 
 VALUES (7, 1, '2024-01-07', 'SUNDAY', 0, 0, 0);
-
-insert into activities (calories_burned, distance, duration, met, daily_total_id) values (200, 0, 0, 0, 1);

@@ -34,8 +34,13 @@ public class DailyTotal {
     }
 
     public void addActivity(Activity activity){
+        activity.setDailyTotal(this);
+        activity.setDistance(activity.getDistance());
+        activity.setDuration(activity.getTime());
+        activity.setWeight(weeklyTotal.getWeight());
+        activity.setMet();
         int calories = activity.getCaloriesBurned();
-        System.out.println("Calories: " + calories);
+        activity.setCaloriesBurned(calories);
         this.totalCalories += calories;
         this.activityCalories += calories;
         this.activities.add(activity);

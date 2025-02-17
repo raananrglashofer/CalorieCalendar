@@ -72,4 +72,8 @@ public class WeeklyTotal {
     public int getAverageCaloriesPerDay() {
         return averageCaloriesPerDay;
     }
+
+    public double getWeight(){
+        return user.getWeight();
+    }
 }

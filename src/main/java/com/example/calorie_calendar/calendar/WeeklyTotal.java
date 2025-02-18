@@ -56,7 +56,6 @@ public class WeeklyTotal {
     }
 
     public void addActivityToDay(Activity activity, Day day){
-        getDay(day).addActivity(activity);
         updateCounts(activity);
     }
 

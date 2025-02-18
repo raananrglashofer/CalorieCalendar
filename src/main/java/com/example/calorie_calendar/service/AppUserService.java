@@ -76,6 +76,20 @@ public void updateUser(AppUser user) {
     public void addActivityByUser(Long id, Activity activity, Day day){
         AppUser user = this.appUserRepository.findById(id)
                     .orElseThrow(UserNotFoundException::new);
+        WeeklyTotal week = user.getWeek();
+        DailyTotal dailyTotal = week.getDay(day);
+        // update activity
+        activity.setDailyTotal(dailyTotal);
+        activity.setDistance(activity.getDistance());
+        activity.setDuration(activity.getTime());
+        activity.setWeight(week.getWeight());
+        int calories = activity.getCaloriesBurned();
+        processActivity(activity);
+        // update DailyTotal
+        dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() + calories);
+        dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() + calories);
+        dailyTotal.setMiles(dailyTotal.getMiles() + activity.getDistance());
+        dailyTotal.getActivities().add(activity);
         user.addActivity(activity, day);
         this.appUserRepository.save(user);
     }
@@ -87,11 +101,9 @@ public void updateUser(AppUser user) {
         this.appUserRepository.save(user);
     }
 
-    @Transactional
-    public void processActivity(Activity activity){
+    private void processActivity(Activity activity){
         setMet(activity);
         setCaloriesForWorkout(activity);
-        appUserRepository.saveActivity(activity);
     }
     // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
     private void setCaloriesForWorkout(Activity activity){

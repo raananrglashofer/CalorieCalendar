@@ -33,20 +33,6 @@ public class DailyTotal {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public void addActivity(Activity activity){
-        activity.setDailyTotal(this);
-        activity.setDistance(activity.getDistance());
-        activity.setDuration(activity.getTime());
-        activity.setWeight(weeklyTotal.getWeight());
-        //activity.setMet();
-        int calories = activity.getCaloriesBurned();
-        activity.setCaloriesBurned(calories);
-        this.totalCalories += calories;
-        this.activityCalories += calories;
-        this.activities.add(activity);
-        this.miles += activity.getDistance();
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -73,5 +59,14 @@ public class DailyTotal {
 
     public void setWeek(WeeklyTotal weeklyTotal){
         this.weeklyTotal = weeklyTotal;
+    }
+    public void setTotalCalories(int totalCalories) {
+        this.totalCalories = totalCalories;
+    }
+    public void setMiles(double miles){
+        this.miles = miles;
+    }
+    public void setActivityCalories(int activityCalories) {
+        this.activityCalories = activityCalories;
     }
 }

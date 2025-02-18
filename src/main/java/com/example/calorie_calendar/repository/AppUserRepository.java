@@ -21,6 +21,4 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
    List<Activity> filterActivitiesByDistance(@Param("id") Long id, @Param("distance") double distance);
 
    Optional<Activity> findActivityById(Long id);
-   
-   void saveActivity(Activity activity);
 }

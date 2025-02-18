@@ -38,6 +38,11 @@ public class AppUserService {
     public AppUser create(AppUser user) {
         // Create WeeklyTotal and associate it with user
         WeeklyTotal weeklyTotal = new WeeklyTotal();
+        for(Day day : Day.values()){
+            DailyTotal newDay = new DailyTotal(user.getBmr(), day);
+            newDay.setWeek(weeklyTotal);
+            weeklyTotal.getDays().add(newDay);
+        }
         weeklyTotal.setUser(user); // Ensure user_id is set in WeeklyTotal
     
         user.setWeek(weeklyTotal);

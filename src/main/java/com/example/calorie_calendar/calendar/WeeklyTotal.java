@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class WeeklyTotal {
     @Id
@@ -15,37 +17,24 @@ public class WeeklyTotal {
     private AppUser user;
     private int activeCalories = 0;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "weeklyTotal")
+    @JsonIgnore
     private List<DailyTotal> days = new ArrayList<>();
     private double totalMiles = 0;
     private int activitiesCount = 0;
     private int averageCaloriesPerDay = 0;
-    private double bmr = 0;
     public WeeklyTotal() {
         // for database
-        for(Day day : Day.values()){
-            DailyTotal newDay = new DailyTotal(bmr, day);
-            newDay.setWeek(this);
-            days.add(newDay);
-        }
     }
 
     public WeeklyTotal(AppUser user){
-        for(Day day : Day.values()){
-            DailyTotal newDay = new DailyTotal(bmr, day);
-            newDay.setWeek(this);
-            days.add(newDay);
-        }
-        this.bmr = user.getBmr();
+        this.user = user;
     }
 
     public DailyTotal getDay(Day curDay) {
-        for(int i = 0; i < days.size(); i++){
-            if(curDay == days.get(i).getDayOfWeek()){
-                return days.get(i);
-            }
-
-        }
-        return null;
+        return days.stream()
+                .filter(day -> day.getDayOfWeek() == curDay)
+                .findFirst()
+                .orElse(null);
     }
 
     public int getActiveCalories() {
@@ -82,5 +71,8 @@ public class WeeklyTotal {
     }
     public void setAverageCaloriesPerDay(int averageCaloriesPerDay) {
         this.averageCaloriesPerDay = averageCaloriesPerDay;
+    }
+    public List<DailyTotal> getDays() {
+        return days;
     }
 }

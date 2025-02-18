@@ -38,13 +38,6 @@ public class WeeklyTotal {
         this.bmr = user.getBmr();
     }
 
-    public void updateCounts(Activity activity){
-        activeCalories += activity.getCaloriesBurned();
-        totalMiles += activity.getDistance();
-        activitiesCount++;
-        averageCaloriesPerDay = (int) ((activeCalories/7) + bmr);
-    }
-
     public DailyTotal getDay(Day curDay) {
         for(int i = 0; i < days.size(); i++){
             if(curDay == days.get(i).getDayOfWeek()){
@@ -53,10 +46,6 @@ public class WeeklyTotal {
 
         }
         return null;
-    }
-
-    public void addActivityToDay(Activity activity, Day day){
-        updateCounts(activity);
     }
 
     public int getActiveCalories() {
@@ -80,5 +69,18 @@ public class WeeklyTotal {
 
     public void setUser(AppUser user) {
         this.user = user;
+    }
+
+    public void setActiveCalories(int activeCalories) {
+        this.activeCalories = activeCalories;
+    }
+    public void setTotalMiles(double totalMiles) {
+        this.totalMiles = totalMiles;
+    }
+    public void setActivitiesCount(int activitiesCount) {
+        this.activitiesCount = activitiesCount;
+    }
+    public void setAverageCaloriesPerDay(int averageCaloriesPerDay) {
+        this.averageCaloriesPerDay = averageCaloriesPerDay;
     }
 }

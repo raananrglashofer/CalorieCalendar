@@ -83,14 +83,20 @@ public void updateUser(AppUser user) {
         activity.setDistance(activity.getDistance());
         activity.setDuration(activity.getTime());
         activity.setWeight(week.getWeight());
-        int calories = activity.getCaloriesBurned();
         processActivity(activity);
+        int calories = activity.getCaloriesBurned();
         // update DailyTotal
         dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() + calories);
         dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() + calories);
         dailyTotal.setMiles(dailyTotal.getMiles() + activity.getDistance());
         dailyTotal.getActivities().add(activity);
-        user.addActivity(activity, day);
+        // update WeeklyTotal
+        week.setActiveCalories(week.getActiveCalories() + calories);
+        week.setTotalMiles(week.getTotalMiles() + activity.getDistance());
+        week.setActivitiesCount(week.getActivitiesCount() + 1);
+        week.setAverageCaloriesPerDay((int) ((week.getActiveCalories()/7) + user.getBmr()));
+        // update user
+        user.getActivities().add(activity);
         this.appUserRepository.save(user);
     }
     @Transactional

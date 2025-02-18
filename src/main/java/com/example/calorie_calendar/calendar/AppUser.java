@@ -51,11 +51,6 @@ public class AppUser {
         return this.activities;
     }
 
-    public void addActivity(Activity activity, Day day){
-        this.activities.add(activity);
-        this.weeklyTotal.addActivityToDay(activity, day);
-    }
-
     public Long getId(){
         return this.id;
     }

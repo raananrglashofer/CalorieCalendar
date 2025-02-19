@@ -2,6 +2,7 @@ package com.example.calorie_calendar.service;
 
 import com.example.calorie_calendar.calendar.*;
 import com.example.calorie_calendar.calendar.AppUser.Gender;
+import com.example.calorie_calendar.exceptions.ActivityNotFoundException;
 import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.repository.AppUserRepository;
 
@@ -104,6 +105,7 @@ public void updateUser(AppUser user) {
         processActivity(user, activity);
         int calories = activity.getCaloriesBurned();
         // update DailyTotal
+        System.out.println("Calories: " + calories);
         dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() + calories);
         dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() + calories);
         dailyTotal.setMiles(dailyTotal.getMiles() + activity.getDistance());
@@ -118,9 +120,28 @@ public void updateUser(AppUser user) {
         this.appUserRepository.save(user);
     }
     @Transactional
-    public void removeActivityByUser(Long id, Activity activity){
+    public void removeActivityByUser(Long id, Long activityId, Day day){
+        System.out.println("Activity ID: " + activityId);
         AppUser user = this.appUserRepository.findById(id)
                     .orElseThrow(UserNotFoundException::new);
+        WeeklyTotal week = user.getWeek();
+        DailyTotal dailyTotal = week.getDay(day);
+        Activity activity = dailyTotal.getActivities().stream()
+            .filter(a -> a.getId() == activityId)
+            .findFirst()
+            .orElseThrow(() -> new ActivityNotFoundException("Activity with ID " + activityId + " not found"));
+        System.out.println("" +activity.getId());
+        // update DailyTotal
+        dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() - activity.getCaloriesBurned());
+        dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() - activity.getCaloriesBurned());
+        dailyTotal.setMiles(dailyTotal.getMiles() - activity.getDistance());
+        dailyTotal.getActivities().remove(activity);
+        // update WeeklyTotal
+        week.setActiveCalories(week.getActiveCalories() - activity.getCaloriesBurned());
+        week.setTotalMiles(week.getTotalMiles() - activity.getDistance());
+        week.setActivitiesCount(week.getActivitiesCount() - 1);
+        week.setAverageCaloriesPerDay((int) ((week.getActiveCalories()/7) + user.getBmr()));
+        // update user
         user.getActivities().remove(activity);
         this.appUserRepository.save(user);
     }

@@ -64,6 +64,9 @@ public class Activity {
     public void setMet(double met){
         this.met = met;
     }
+    public long getId(){
+        return this.id;
+    }
 
     @Override
     public boolean equals(Object o) {

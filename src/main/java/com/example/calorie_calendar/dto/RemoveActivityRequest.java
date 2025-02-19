@@ -1,17 +1,27 @@
 package com.example.calorie_calendar.dto;
-import com.example.calorie_calendar.calendar.Activity;
+import com.example.calorie_calendar.calendar.*;
 
 public class RemoveActivityRequest {
     private long id;
-    private Activity activity;
+    private Day day;
+    private long activityId;
 
     // Getters and Setters
-    public Activity getActivity() {
-        return activity;
+
+    public long getActivityId() {
+        return activityId;
     }
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
     }
 
     public void setId(long id) {

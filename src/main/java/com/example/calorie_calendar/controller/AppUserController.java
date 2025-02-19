@@ -71,14 +71,14 @@ public class AppUserController {
         appUserService.addActivityByUser(request.getId(), request.getActivity(), request.getDay());
     }
 
-    @GetMapping("/weekly")
-    WeeklyTotal displayWeeklyTotal(@RequestBody Long id){
-        return appUserService.getWeeklyTotal(id);
-    }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/activities")
     void removeActivityByUser(@RequestBody RemoveActivityRequest request){
-        this.appUserService.removeActivityByUser(request.getId(), request.getActivity());
+        this.appUserService.removeActivityByUser(request.getId(), request.getActivityId(), request.getDay());
+    }
+
+    @GetMapping("/weekly")
+    WeeklyTotal displayWeeklyTotal(@RequestBody Long id){
+        return appUserService.getWeeklyTotal(id);
     }
 }

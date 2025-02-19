@@ -1,6 +1,7 @@
 package com.example.calorie_calendar.service;
 
 import com.example.calorie_calendar.calendar.*;
+import com.example.calorie_calendar.calendar.AppUser.Gender;
 import com.example.calorie_calendar.exceptions.UserNotFoundException;
 import com.example.calorie_calendar.repository.AppUserRepository;
 
@@ -44,12 +45,22 @@ public class AppUserService {
             weeklyTotal.getDays().add(newDay);
         }
         weeklyTotal.setUser(user); // Ensure user_id is set in WeeklyTotal
-    
         user.setWeek(weeklyTotal);
-        
+
+        calculateBMR(user);
         return appUserRepository.save(user);
     }
-
+   // For men: ((9.65 × (weight in lb/2.2)) + (573 × (height in inches * .0254)) – (5.08 × age in years) + 260) * 1.2
+   // For women: ((7.38 × (weight in lb/2.2)) + (607 × (height in inches * .0254)) – (2.31 × age in years) + 43) * 1.2
+    private void calculateBMR(AppUser user){
+        double bmr = 0;
+        if(user.getGender() == Gender.MALE){
+            bmr = (((9.65 * (user.getWeight()/2.2)) + (573 * (user.getHeight() * .0254)) - (5.08 * user.getAge()) + 260) * 1.2);
+        } else if(user.getGender() == Gender.FEMALE){
+            bmr = (((7.38 * (user.getWeight()/2.2)) + (607 * (user.getHeight() * .0254)) - (2.31 * user.getAge()) + 43) * 1.2);
+        }
+        user.setBmr(bmr);
+    }
     public void deleteById(Long id){
         appUserRepository.deleteById(id);
     }
@@ -65,7 +76,7 @@ public void updateUser(AppUser user) {
     if (user.getAge() > 0) existingUser.setAge(user.getAge());
     if (user.getGender() != null) existingUser.setGender(user.getGender());
 
-    existingUser.calculateBMR(); // Recalculate BMR if relevant fields change
+    calculateBMR(existingUser); // Recalculate BMR if relevant fields change
 
     appUserRepository.save(existingUser);
 }
@@ -87,8 +98,7 @@ public void updateUser(AppUser user) {
         activity.setDailyTotal(dailyTotal);
         activity.setDistance(activity.getDistance());
         activity.setDuration(activity.getTime());
-        activity.setWeight(week.getWeight());
-        processActivity(activity);
+        processActivity(user, activity);
         int calories = activity.getCaloriesBurned();
         // update DailyTotal
         dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() + calories);
@@ -112,14 +122,14 @@ public void updateUser(AppUser user) {
         this.appUserRepository.save(user);
     }
 
-    private void processActivity(Activity activity){
+    private void processActivity(AppUser user, Activity activity){
         setMet(activity);
-        setCaloriesForWorkout(activity);
+        setCaloriesForWorkout(user, activity);
     }
     // Calories Burned = MET x Body Weight (kg) x Duration of Running (hours)
-    private void setCaloriesForWorkout(Activity activity){
+    private void setCaloriesForWorkout(AppUser user, Activity activity){
         double durationInHours = activity.getTime() / 60.0;
-        double kilograms = activity.getWeight()/2.2;
+        double kilograms = user.getWeight()/2.2;
         int calories = (int) (activity.getMET() * kilograms * durationInHours);
         activity.setCaloriesBurned(calories);
     }

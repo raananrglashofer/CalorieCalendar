@@ -52,10 +52,6 @@ public class WeeklyTotal {
         return averageCaloriesPerDay;
     }
 
-    public double getWeight(){
-        return user.getWeight();
-    }
-
     public void setUser(AppUser user) {
         this.user = user;
     }

@@ -26,8 +26,6 @@ public class AppUser {
     public enum Gender {MALE, FEMALE};
     public AppUser() {
         // for database
-        calculateBMR();
-        this.weeklyTotal = new WeeklyTotal(this);
     }
 
     public AppUser(String name, double weight, Gender gender, int height, int age) {
@@ -43,7 +41,6 @@ public class AppUser {
         this.height = height;
         this.age = age;
         this.gender = gender;
-        calculateBMR();
         this.weeklyTotal = new WeeklyTotal(this);
     }
 
@@ -101,13 +98,7 @@ public class AppUser {
     public double getBmr() {
         return bmr;
     }
-   // For men: ((9.65 × (weight in lb/2.2)) + (573 × (height in inches * .0254)) – (5.08 × age in years) + 260) * 1.2
-   //  For women: ((7.38 × (weight in lb/2.2)) + (607 × (height in inches * .0254)) – (2.31 × age in years) + 43) * 1.2
-    public void calculateBMR(){
-        if(gender == Gender.MALE){
-            this.bmr = (((9.65 * (weight/2.2)) + (573 * (height * .0254)) - (5.08 * age) + 260) * 1.2);
-        } else if(gender == Gender.FEMALE){
-            this.bmr = (((7.38 * (weight/2.2)) + (607 * (height * .0254)) - (2.31 * age) + 43) * 1.2);
-        }
+    public void setBmr(double bmr){
+        this.bmr = bmr;
     }
 }

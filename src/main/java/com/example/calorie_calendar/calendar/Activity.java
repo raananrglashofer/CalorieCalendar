@@ -17,7 +17,6 @@ public class Activity {
     private double distance = 0;
     private int caloriesBurned = 0;
     private double met = 0;
-    private double weight = 0;
     public Activity(){
         // for database
     }
@@ -45,9 +44,6 @@ public class Activity {
     public double getMET(){
         return met;
     }
-    public double getWeight(){
-        return weight;
-    }
 
     public void setDistance(double distance){
         this.distance = distance;
@@ -65,9 +61,6 @@ public class Activity {
         this.dailyTotal = dailyTotal;
     }
 
-    public void setWeight(double weight){
-        this.weight = weight;
-    }
     public void setMet(double met){
         this.met = met;
     }

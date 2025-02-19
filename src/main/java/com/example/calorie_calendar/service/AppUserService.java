@@ -105,7 +105,6 @@ public void updateUser(AppUser user) {
         processActivity(user, activity);
         int calories = activity.getCaloriesBurned();
         // update DailyTotal
-        System.out.println("Calories: " + calories);
         dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() + calories);
         dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() + calories);
         dailyTotal.setMiles(dailyTotal.getMiles() + activity.getDistance());
@@ -121,7 +120,6 @@ public void updateUser(AppUser user) {
     }
     @Transactional
     public void removeActivityByUser(Long id, Long activityId, Day day){
-        System.out.println("Activity ID: " + activityId);
         AppUser user = this.appUserRepository.findById(id)
                     .orElseThrow(UserNotFoundException::new);
         WeeklyTotal week = user.getWeek();
@@ -130,7 +128,6 @@ public void updateUser(AppUser user) {
             .filter(a -> a.getId() == activityId)
             .findFirst()
             .orElseThrow(() -> new ActivityNotFoundException("Activity with ID " + activityId + " not found"));
-        System.out.println("" +activity.getId());
         // update DailyTotal
         dailyTotal.setTotalCalories(dailyTotal.getTotalCalories() - activity.getCaloriesBurned());
         dailyTotal.setActivityCalories(dailyTotal.getActivityCalories() - activity.getCaloriesBurned());

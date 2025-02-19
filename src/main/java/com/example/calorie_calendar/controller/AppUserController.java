@@ -78,7 +78,7 @@ public class AppUserController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/activities")
-    void removeActivityByUser(@RequestBody Long id, @RequestBody Activity activity){
-        this.appUserService.removeActivityByUser(id, activity);
+    void removeActivityByUser(@RequestBody RemoveActivityRequest request){
+        this.appUserService.removeActivityByUser(request.getId(), request.getActivity());
     }
 }

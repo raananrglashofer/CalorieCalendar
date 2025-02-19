@@ -53,6 +53,10 @@ public class AppUserController {
 
     @GetMapping("/activities")
     List<Activity> getActivitiesByUser(@RequestBody Long id){
+        Optional<AppUser> user = appUserService.findById(id);
+        if(user.isEmpty()){
+            throw new UserNotFoundException();
+        }
         return appUserService.findAllActivitiesByUserID(id);
     }
     

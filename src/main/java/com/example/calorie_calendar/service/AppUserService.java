@@ -25,6 +25,9 @@ public class AppUserService {
     public List<AppUser> findAll(){
         return appUserRepository.findAll();
     }
+    public Optional<AppUser> findById(Long id){
+        return appUserRepository.findById(id);
+    }
 
 
     public WeeklyTotal getWeeklyTotal(Long id){

@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
    Optional<AppUser> findByName(String name);
+   Optional<AppUser> findById(Long id);
 
    @Query("SELECT u.activities FROM AppUser u WHERE u.id = :id")
    List<Activity> findActivitiesByUserID(@Param("id") Long id);

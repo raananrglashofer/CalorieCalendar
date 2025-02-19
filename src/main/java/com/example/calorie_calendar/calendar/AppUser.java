@@ -28,21 +28,21 @@ public class AppUser {
         // for database
     }
 
-    public AppUser(String name, double weight, Gender gender, int height, int age) {
-        if(!name.isEmpty() && !name.isBlank()){
-            this.name = name;
-        } else{
-            throw new IllegalArgumentException("Name is empty or Blank");
-        }
-        if(weight <= 0 || height <= 0 || age <= 0){
-            throw new IllegalArgumentException("Weight, height, or age is not valid a positive number");
-        }
-        this.weight = weight;
-        this.height = height;
-        this.age = age;
-        this.gender = gender;
-        this.weeklyTotal = new WeeklyTotal(this);
-    }
+    // public AppUser(String name, double weight, Gender gender, int height, int age) {
+    //     if(!name.isEmpty() && !name.isBlank()){
+    //         this.name = name;
+    //     } else{
+    //         throw new IllegalArgumentException("Name is empty or Blank");
+    //     }
+    //     if(weight <= 0 || height <= 0 || age <= 0){
+    //         throw new IllegalArgumentException("Weight, height, or age is not valid a positive number");
+    //     }
+    //     this.weight = weight;
+    //     this.height = height;
+    //     this.age = age;
+    //     this.gender = gender;
+    //     this.weeklyTotal = new WeeklyTotal(this);
+    // }
 
     public List<Activity> getActivities(){
         return this.activities;

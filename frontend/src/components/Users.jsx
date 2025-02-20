@@ -12,7 +12,7 @@ const Users = () => {
         try{
             const users = await apiService.getUsers();
             setMessage(JSON.stringify(users, null, 2));
-            console.log("users recieved", response.data);
+            console.log("users recieved", users);
         } catch(error){
             console.error('Error fetching users:', error);
         }

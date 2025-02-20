@@ -10,8 +10,8 @@ const Users = () => {
 
     const fetchUsers = async () => {
         try{
-            const response = await apiService.getUsers();
-            setMessage(response.data);
+            const users = await apiService.getUsers();
+            setMessage(JSON.stringify(users, null, 2));
             console.log("users recieved", response.data);
         } catch(error){
             console.error('Error fetching users:', error);
@@ -20,7 +20,7 @@ const Users = () => {
     return(
         <div>
             <h1>Users</h1>
-            <p>{message}</p>
+            <pre>{message}</pre>
         </div>
     );
 };

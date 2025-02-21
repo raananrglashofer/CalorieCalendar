@@ -26,6 +26,10 @@ const apiService = {
             console.error('Error fetching user:', error);
             throw error;
         }
+    },
+    getDays: async (username) => {
+        const user = getUserByName(username);
+        return user.days;
     }
 };
 export default apiService;

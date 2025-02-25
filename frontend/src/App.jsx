@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Users from './components/Users';
-import Calendar from './components/Calendar';
-import Home from './components/Home';
+import { Link } from "react-router-dom";
+import Users from './Pages/Users';
+import Calendar from './Pages/Calendar';
+import Home from './Pages/Home';
 
 function App() {
     return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import apiService from "../services/apiService";
+import ReturnToHome from "../components/returnToHome";
 
 const Calendar = () => {
     const [user, setUser] = useState(null); 
@@ -19,6 +20,8 @@ const Calendar = () => {
     return(
         <div>
             <h1>Calendar</h1>
+            <p>This is the calendar page</p>
+            <ReturnToHome />
             <pre>{JSON.stringify(user, null, 2)}</pre>
         </div>
     );
